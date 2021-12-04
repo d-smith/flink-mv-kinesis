@@ -4,15 +4,13 @@ package org.ds.fmvk.application;
 import org.apache.flink.api.common.functions.MapFunction;
 import org.apache.flink.api.common.functions.ReduceFunction;
 import org.apache.flink.api.common.serialization.SimpleStringSchema;
-import org.apache.flink.api.java.tuple.Tuple2;
 import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.streaming.api.windowing.assigners.TumblingProcessingTimeWindows;
 import org.apache.flink.streaming.api.windowing.time.Time;
 import org.apache.flink.streaming.connectors.kinesis.FlinkKinesisConsumer;
 import org.apache.flink.streaming.connectors.kinesis.config.ConsumerConfigConstants;
-import org.ds.fmvk.functions.QuoteMapper;
-import org.ds.fmvk.functions.QuoteStructureFilter;
+import org.ds.fmvk.functions.QuoteFlatMapper;
 import org.ds.fmvk.pojos.Quote;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,8 +43,7 @@ public class QuoteConflator {
 
 
         DataStream<Quote> quoteStream = input
-                .filter(new QuoteStructureFilter()).name("raw quote filter").uid("raw quote filter")
-                .map(new QuoteMapper()).name("quote mapper").uid("quote mapper");
+                .flatMap(new QuoteFlatMapper()).name("quote flap mapper").uid("quote flap mapper");
 
 
         quoteStream.keyBy(quote -> quote.symbol)
