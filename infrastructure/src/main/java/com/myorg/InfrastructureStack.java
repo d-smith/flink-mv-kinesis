@@ -14,8 +14,12 @@ public class InfrastructureStack extends Stack {
         super(scope, id, props);
 
 
-        final Stream stream = Stream.Builder.create(this, "quotestream")
+        Stream.Builder.create(this, "quotestream")
             .streamName("quotestream")
+            .build();
+
+        Stream.Builder.create(this, "positions")
+            .streamName("positions")
             .build();
     }
 }
