@@ -5,7 +5,9 @@ import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.streaming.connectors.kinesis.FlinkKinesisConsumer;
 import org.apache.flink.streaming.connectors.kinesis.config.ConsumerConfigConstants;
+import org.ds.fmvk.functions.PositionFlatMapper;
 import org.ds.fmvk.functions.QuoteFlatMapper;
+import org.ds.fmvk.pojos.Position;
 import org.ds.fmvk.pojos.Quote;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,7 +40,8 @@ public class MarketValueCalc {
         quoteStream.print();
 
         DataStream<String> rawPositionStream = createSourceFromStaticConfig(env, positionsStreamName);
-        rawPositionStream.print();
+        DataStream<Position> positions = rawPositionStream.flatMap(new PositionFlatMapper());
+        positions.print();
 
         env.execute();
     }
