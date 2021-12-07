@@ -26,7 +26,7 @@ import java.util.Properties;
 
 public class MarketValueCalc {
     private static Logger LOG = LoggerFactory.getLogger(MarketValueCalc.class);
-    private static final String region = "us-east-1";
+    private static final String region = System.getenv("AWS_REGION");
     private static final String inputStreamName = "quotestream";
     private static final String positionsStreamName = "positions";
 

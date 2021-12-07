@@ -19,7 +19,7 @@ import java.util.Properties;
 
 public class QuoteConflator {
 
-    private static final String region = "us-east-1";
+    private static final String region = System.getenv("AWS_REGION");
     private static final String inputStreamName = "quotestream";
 
     private static DataStream<String> createSourceFromStaticConfig(StreamExecutionEnvironment env) {

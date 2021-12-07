@@ -46,8 +46,6 @@ public class QuoteEvaluator extends KeyedBroadcastProcessFunction<String, Positi
 
     @Override
     public void processElement(Position position, ReadOnlyContext readOnlyContext, Collector<MarketValue> collector) throws Exception {
-        System.out.println("processElement " + position);
-        LOG.warn("you seen my cones");
 
         // get current quote from broadcast state
         Quote quote = readOnlyContext

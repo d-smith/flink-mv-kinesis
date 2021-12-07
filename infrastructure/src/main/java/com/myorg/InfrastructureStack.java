@@ -21,5 +21,9 @@ public class InfrastructureStack extends Stack {
         Stream.Builder.create(this, "positions")
             .streamName("positions")
             .build();
+
+        Stream.Builder.create(this, "marketval")
+            .streamName("marketval")
+            .build();
     }
 }
